@@ -1,0 +1,320 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>My Blog</title>
+
+    <div class="col-4">
+        <form action="" method="GET">
+            <div class="input-group">
+                <input class="form-control" type="text" name="keyworld" placeholder="Enter search term..."
+                    aria-label="Enter search term">
+                <button class="btn btn-primary" id="button-search" type="submit">
+                    Go!
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- Bootstrap CSS -->
+    <!-- ============================= -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- ============================= -->
+    <!-- Bootstrap Icons -->
+    <!-- ============================= -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- ============================= -->
+    <!-- Google Font -->
+    <!-- ============================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <!-- ============================= -->
+    <!-- Custom CSS -->
+    <!-- ============================= -->
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+    <!-- ============================= -->
+    <!-- Custom Style -->
+    <!-- ============================= -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+        .blog-header-logo {
+            font-family: "Playfair Display", serif;
+            font-size: 2rem;
+            text-decoration: none;
+            color: #000;
+        }
+
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+
+        .nav-scroller .nav-link {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+        }
+
+
+        .featured-post {
+            background: #451222;
+            color: white;
+            border-radius: 8px;
+        }
+
+
+        .featured-post h1,
+        .blog-post h2 {
+            font-family: "Playfair Display", serif;
+        }
+
+
+        .blog-post-meta {
+            color: #6c757d;
+        }
+
+
+        /* ============================= */
+        /* SIDEBAR */
+        /* ============================= */
+
+        .blog-sidebar h4 {
+            font-family: "Playfair Display", serif;
+        }
+
+
+        .blog-sidebar a {
+            text-decoration: none;
+        }
+
+
+        .blog-sidebar a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ============================= */
+        /* FOOTER */
+        /* ============================= */
+
+        .blog-footer {
+            padding: 2.5rem 0;
+            color: #727272;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e5e5e5;
+            margin-top: 50px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================================= -->
+    <!-- NAVIGATION -->
+    <!-- ================================================= -->
+
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+
+        <nav class="nav nav-underline justify-content-between">
+
+            {% for cat in categories %}
+
+            <a class="nav-item nav-link link-body-emphasis" href="{% url 'posts_by_category' cat.id %}">
+                {{ cat.category_name }}
+            </a>
+
+            {% endfor %}
+
+        </nav>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ================================================= -->
+
+    <div class="container">
+
+        <div class="row">
+
+
+            <!-- ========================================= -->
+            <!-- MAIN WEBSITE CONTENT -->
+            <!-- ========================================= -->
+
+            <main class="col-md-8">
+
+                {% block content %}
+
+                {% endblock %}
+
+            </main>
+
+
+            <!-- ========================================= -->
+            <!-- SIDEBAR -->
+            <!-- ========================================= -->
+
+            <aside class="col-md-4 blog-sidebar">
+
+
+                <!-- ===================================== -->
+                <!-- ABOUT -->
+                <!-- ===================================== -->
+
+                <div class="p-3 mb-3 bg-light rounded">
+
+                    <h4 class="font-italic">
+                        {{ about.about_heading }}
+                    </h4>
+
+                    <p class="mb-0">
+
+                        {{ about.about_description}}
+
+                    </p>
+
+                </div>
+
+
+                <!-- ===================================== -->
+                <!-- FOLLOW US -->
+
+                <!-- ===================================== -->
+                {% if social_links %}
+                <div class="p-3">
+
+                    <h4 class="font-italic">
+                        Follow Us
+                    </h4>
+
+
+                    <ol class="list-unstyled">
+
+
+                        <!-- GitHub -->
+
+                        <li class="mb-2">
+
+                            <i class="bi bi-github"></i>
+                            {% for i in social_links %}
+                            <a href="{{ i.link }}" target="_blank">
+                                {{ i.platform }}
+                            </a>
+
+                        </li>
+                        {% endfor %}
+
+                        <!-- LinkedIn -->
+
+                        <li class="mb-2">
+
+                            <i class="bi bi-linkedin"></i>
+
+                            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                                LinkedIn
+                            </a>
+
+                        </li>
+
+
+                    </ol>
+
+                </div>
+                {% endif %}
+
+            </aside>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- FOOTER -->
+    <!-- ================================================= -->
+
+    <footer class="blog-footer">
+
+        <p>
+
+            My Blog built with
+
+            <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">
+                Bootstrap
+            </a>.
+
+        </p>
+
+
+        <p>
+
+            <a href="#">
+                Back to top
+            </a>
+
+        </p>
+
+    </footer>
+
+
+    <!-- ================================================= -->
+    <!-- Bootstrap JavaScript -->
+    <!-- ================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
