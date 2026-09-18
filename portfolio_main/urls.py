@@ -1,31 +1,30 @@
+
 from django.contrib import admin
 from django.urls import path, include
 from ports import views
-from django.conf import settings
-from django.conf.urls.static import static
-
 
 urlpatterns = [
-    # Admin
+
     path("admin/", admin.site.urls),
 
-    # Homepage
+    # Home page
     path("", views.home, name="home"),
+
+    # Register
+    path("register/", views.register, name="register"),
+
+    # Login
+    path("login/", views.user_login, name="login"),
+
+    # Search
+    path("search/", views.search, name="search"),
 
     # Categories
     path("category/", include("ports.urls")),
 
-    # Individual blog/portfolio post
+    # Individual blog post
     path("<slug:slug>/", views.ports, name="Ports"),
 
-    # Search
-    path("ports/search/", views.search, name="search"),
+    # logout
+    path("logout/", views.logout_view, name="logout"),
 ]
-
-
-# Media files during development
-if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT
-    )

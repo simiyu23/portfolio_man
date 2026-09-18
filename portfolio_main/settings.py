@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     'ports',
     'assignments',
+    'crispy_forms',
+    'crispy_bootstrap4',
+
 
 
 ]
@@ -59,7 +62,7 @@ ROOT_URLCONF = 'portfolio_main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS':  [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,3 +146,5 @@ MAILERS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

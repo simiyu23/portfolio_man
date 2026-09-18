@@ -12,3 +12,6 @@ def about(request):
     }
 
     return render(request, 'about.html', context)
+
+    def register(request):
+        return render(request, register.hmtl)
